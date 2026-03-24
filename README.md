@@ -39,48 +39,52 @@ The pipeline follows a standard MapReduce pattern:
 
 ## Key Findings
 
-- Significant cost variability exists across different building service classifications
-- - Consumption rates vary substantially by borough and billing period
-  - - The MapReduce aggregation reveals patterns not visible in raw record-by-record inspection
-    - - Large outliers in per-unit cost suggest billing anomalies worth further investigation
-     
-      - ---
+| Finding | Detail |
+|---|---|
+| Cost variability | Significant differences exist across building service classifications |
+| Borough patterns | Consumption rates vary substantially by borough and billing period |
+| Aggregation insight | MapReduce reveals patterns not visible in raw record-by-record inspection |
+| Billing anomalies | Large per-unit cost outliers suggest billing irregularities worth investigating |
 
-      ## How to Run
+---
 
-      1. Ensure Hadoop is installed and configured
-      2. 2. Compile the Java source files or use the pre-built `WaterConsumptionAnalysis.jar`
-         3. 3. Upload the dataset to HDFS:
-            4.    ```bash
-                     hdfs dfs -put nyc_water_data.csv /input/
-                     ```
-                  4. Run the job:
-                  5.    ```bash
-                           hadoop jar WaterConsumptionAnalysis.jar WaterAnalysisDriver /input/nyc_water_data.csv /output/
-                           ```
-                        5. View results:
-                        6.    ```bash
-                                 hdfs dfs -cat /output/part-00000
-                                 ```
+## How to Run
 
-                              ---
+**Step 1 — Upload data to HDFS:**
+```bash
+hdfs dfs -put nyc_water_data.csv /input/
+```
 
-                          ## Files
+**Step 2 — Run the MapReduce job:**
+```bash
+hadoop jar WaterConsumptionAnalysis.jar WaterAnalysisDriver /input/nyc_water_data.csv /output/
+```
 
-                    ```
-                    Water_Consumption_Analysis/
-                    ├── README.md
-                    ├── WaterAnalysisDriver.java       <- Job configuration & entry point
-                    ├── WaterConsumptionMapper.java    <- Map phase logic
-                    ├── WaterCostReducer.java          <- Reduce phase logic
-                    ├── WaterConsumptionAnalysis.jar   <- Compiled JAR
-                    ├── nyc_water_data.csv             <- Raw dataset
-                    ├── consumption_costs.csv          <- Extracted cost data
-                    ├── cleaned_consumption_costs.csv  <- Cleaned dataset
-                    ├── part-00000                     <- MapReduce output
-                    └── HW2_Report.docx                <- Full written analysis report
-                    ```
+**Step 3 — View results:**
+```bash
+hdfs dfs -cat /output/part-00000
+```
 
-                    ---
-
-              *Individual project — Wendy Calderon · Georgia Gwinnett College · Spring 2025*
+> Requires Hadoop installed and configured. Alternatively, compile from source using `WaterAnalysisDriver.java`, `WaterConsumptionMapper.java`, and `WaterCostReducer.java`.
+>
+> ---
+>
+> ## Files
+>
+> ```
+> Water_Consumption_Analysis/
+> ├── README.md
+> ├── WaterAnalysisDriver.java       <- Job configuration & entry point
+> ├── WaterConsumptionMapper.java    <- Map phase logic
+> ├── WaterCostReducer.java          <- Reduce phase logic
+> ├── WaterConsumptionAnalysis.jar   <- Compiled JAR
+> ├── nyc_water_data.csv             <- Raw dataset
+> ├── consumption_costs.csv          <- Extracted cost data
+> ├── cleaned_consumption_costs.csv  <- Cleaned dataset
+> ├── part-00000                     <- MapReduce output
+> └── HW2_Report.docx                <- Full written analysis report
+> ```
+>
+> ---
+>
+> *Individual project — Wendy Calderon · Georgia Gwinnett College · Spring 2025*
